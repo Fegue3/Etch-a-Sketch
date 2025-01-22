@@ -38,4 +38,14 @@ newgrid_button.addEventListener('click', () => {
       createGrid(newgrid_size);
 })
 
+showgrid.addEventListener('click', () => {
+    const squares = document.querySelectorAll('.square');
+
+    squares.forEach(square => {
+        square.classList.toggle('with-border');
+
+    })
+    const hasBorder = squares[0].classList.contains('with-border');
+    showgrid.textContent = hasBorder ? 'Hide Grid' : 'Show Grid';
+})
 
