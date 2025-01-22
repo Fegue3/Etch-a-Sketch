@@ -67,7 +67,7 @@ body {
   
   .square {
     box-sizing: border-box;
-     /* Opcional: Para ver os contornos dos quadrados */
+    border: 1px solid #ddd; /* Opcional: Para ver os contornos dos quadrados */
     background-color: #f4f4f4; /* Cor inicial */
     flex: 1 0 auto;
   }

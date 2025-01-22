@@ -1,4 +1,5 @@
 const newgrid_button = document.querySelector("#newgrid");
+const showgrid = document.querySelector("#showgrid");
 const resetbutton = document.querySelector("#resetButton");
 const colorpicker = document.querySelector("#color-picker");
 const fillgridcolor = document.querySelector("#fillgrid");
@@ -24,4 +25,17 @@ function createGrid(size) {
           container.appendChild(square);
         }
       }
-createGrid(16);
+
+createGrid(16);      
+
+newgrid_button.addEventListener('click', () => {
+    const newgrid_size = parseInt(prompt('Chose the number of squares (1-100):'));
+
+    if (isNaN(newgrid_size) || newgrid_size < 1 || newgrid_size > 100) {
+        alert('Please enter a valid number between 1 and 100.');
+        return;
+    }
+      createGrid(newgrid_size);
+})
+
+
