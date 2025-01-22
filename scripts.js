@@ -7,6 +7,8 @@ const rainbowcolor = document.querySelector("#rainbowbutton");
 const container = document.querySelector("#container");
 const Drawtoggle = document.querySelector('#Drawtoggle');
 let dragMode = false;
+let rainbowMode = false;
+let isDragging = false;
 
 function createGrid(size) {
     container.innerHTML = ''; // Limpa o grid existente
@@ -69,18 +71,26 @@ function generateRandomColor() {
     return `rgb(${randomR}, ${randomG}, ${randomB})`; // Return the RGB color
   }
 
+  function applyRainbowColor(event) {
+    const randomColor = generateRandomColor();
+    event.target.style.backgroundColor = randomColor;
+}
 rainbowcolor.addEventListener('click', () =>{
+    rainbowMode = !rainbowMode; // Toggle the rainbow mode state
+    rainbowcolor.textContent = rainbowMode ? 'Disable Rainbow' : 'Enable Rainbow';
     const squares = document.querySelectorAll('.square');
 
-    squares.forEach(square =>{
-        square.addEventListener('mouseover', () => {
-            const randomColor = generateRandomColor();
-            square.style.backgroundColor = randomColor;
-        })
-    })
-})
+    squares.forEach(square => {
+        square.removeEventListener('mouseover', applyRainbowColor); // Ensure no duplicate listeners
+    });
 
-let isDragging = false; // Track the state of drag mode
+    if (rainbowMode) {
+        // Enable rainbow mode
+        squares.forEach(square => {
+            square.addEventListener('mouseover', applyRainbowColor);
+        });
+    }
+})
 
 // Toggle draw mode
 Drawtoggle.addEventListener('click', () => {
