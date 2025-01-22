@@ -63,3 +63,21 @@ fillgridcolor.addEventListener('click', () =>{
         square.style.backgroundColor = color;
     })
 })
+
+function generateRandomColor() {
+    const randomR = Math.floor(Math.random() * 256); // Random red (0-255)
+    const randomG = Math.floor(Math.random() * 256); // Random green (0-255)
+    const randomB = Math.floor(Math.random() * 256); // Random blue (0-255)
+    return `rgb(${randomR}, ${randomG}, ${randomB})`; // Return the RGB color
+  }
+
+rainbowcolor.addEventListener('click', () =>{
+    const squares = document.querySelectorAll('.square');
+
+    squares.forEach(square =>{
+        square.addEventListener('mouseover', () => {
+            const randomColor = generateRandomColor();
+            square.style.backgroundColor = randomColor;
+        })
+    })
+})
