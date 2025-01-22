@@ -5,6 +5,8 @@ const colorpicker = document.querySelector("#color-picker");
 const fillgridcolor = document.querySelector("#fillgrid");
 const rainbowcolor = document.querySelector("#rainbowbutton");
 const container = document.querySelector("#container");
+const Drawtoggle = document.querySelector('#Drawtoggle');
+let dragMode = false;
 
 function createGrid(size) {
     container.innerHTML = ''; // Limpa o grid existente
@@ -17,11 +19,7 @@ function createGrid(size) {
         square.classList.add('square');
         square.style.width = `${1000 / size}px`; // Ajusta o tamanho do quadrado
         square.style.height = `${990 / size}px`;
-        square.addEventListener('mouseover', () => {
-            const color = document.getElementById('color-picker').value;
-            square.style.backgroundColor = color;
-          });
-      
+        square.addEventListener('mouseover', hoverToColor);
           container.appendChild(square);
         }
       }
@@ -81,3 +79,57 @@ rainbowcolor.addEventListener('click', () =>{
         })
     })
 })
+
+let isDragging = false; // Track the state of drag mode
+
+// Toggle draw mode
+Drawtoggle.addEventListener('click', () => {
+    dragMode = !dragMode; // Toggle dragMode state
+    Drawtoggle.textContent = dragMode ? 'Hover' : 'Drag';
+
+    const squares = document.querySelectorAll('.square');
+
+    // Remove existing event listeners to avoid conflicts
+    squares.forEach(square => {
+        square.removeEventListener('mouseover', hoverToColor);
+        square.removeEventListener('mousedown', startDrag);
+        square.removeEventListener('mousemove', dragToColor);
+        square.removeEventListener('mouseup', stopDrag);
+    });
+
+    if (dragMode) {
+        // Enable "drag to color" mode
+        squares.forEach(square => {
+            square.addEventListener('mousedown', startDrag);
+            square.addEventListener('mousemove', dragToColor);
+            square.addEventListener('mouseup', stopDrag);
+        });
+    } else {
+        // Enable "hover to color" mode
+        squares.forEach(square => {
+            square.addEventListener('mouseover', hoverToColor);
+        });
+    }
+});
+
+// Function to apply color on hover
+function hoverToColor(event) {
+    const color = colorpicker.value;
+    event.target.style.backgroundColor = color;
+}
+
+// Drag mode event functions
+function startDrag() {
+    isDragging = true;
+}
+
+function dragToColor(event) {
+    if (isDragging) {
+        const color = colorpicker.value;
+        event.target.style.backgroundColor = color;
+    }
+}
+
+function stopDrag() {
+    isDragging = false;
+}
