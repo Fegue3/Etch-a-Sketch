@@ -55,3 +55,11 @@ resetbutton.addEventListener('click', () => {
         square.style.backgroundColor = '';
     })
 })
+
+fillgridcolor.addEventListener('click', () =>{
+    const squares = document.querySelectorAll('.square');
+    const color = document.getElementById('color-picker').value;
+    squares.forEach(square => {
+        square.style.backgroundColor = color;
+    })
+})
