@@ -49,3 +49,9 @@ showgrid.addEventListener('click', () => {
     showgrid.textContent = hasBorder ? 'Hide Grid' : 'Show Grid';
 })
 
+resetbutton.addEventListener('click', () => {
+    const squares = document.querySelectorAll('.square');
+    squares.forEach(square => {
+        square.style.backgroundColor = '';
+    })
+})
