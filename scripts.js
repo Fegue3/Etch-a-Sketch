@@ -4,3 +4,24 @@ const colorpicker = document.querySelector("#color-picker");
 const fillgridcolor = document.querySelector("#fillgrid");
 const rainbowcolor = document.querySelector("#rainbowbutton");
 const container = document.querySelector("#container");
+
+function createGrid(size) {
+    container.innerHTML = ''; // Limpa o grid existente
+    const totalSquares = size * size;
+
+    container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+    container.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+    for (let i = 0; i < totalSquares; i++) {
+        const square = document.createElement('div');
+        square.classList.add('square');
+        square.style.width = `${1000 / size}px`; // Ajusta o tamanho do quadrado
+        square.style.height = `${990 / size}px`;
+        square.addEventListener('mouseover', () => {
+            const color = document.getElementById('color-picker').value;
+            square.style.backgroundColor = color;
+          });
+      
+          container.appendChild(square);
+        }
+      }
+createGrid(16);
